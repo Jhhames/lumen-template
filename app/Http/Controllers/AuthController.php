@@ -93,13 +93,12 @@ class AuthController extends BaseController
 
         $user->name = $this->request->name;
         $user->email = $this->request->email;
-        $user->role = $this->request->role;
         $user->password = password_hash($this->request->password,PASSWORD_BCRYPT);
 
         if($user->save()){
             $client = new Client([
                 'timeout' => 10,
-                'base_uri' => url('/')
+                'base_uri' => route('/')
             ]);
 
             $requestBody = [
@@ -107,7 +106,7 @@ class AuthController extends BaseController
                 'password' => $this->request->password
             ];
             try{
-                $request = $client->post('/auth/login',[
+                $request = $client->request('POST','/auth/login',[
                     'body' => json_encode($requestBody),
                     'defaults' => [
                         'exceptions' => false
