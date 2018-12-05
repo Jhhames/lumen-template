@@ -138,6 +138,7 @@ class AuthController extends BaseController
                 ],$responseCode);
 
             }else{
+                DB::table('users')->where('email',$this->request->email)->delete();
                 return response()->json([
                     'message' => $error
                 ], $errorCode);
