@@ -107,7 +107,7 @@ class AuthController extends BaseController
             ];
             try{
                 $request = $client->request('POST','/auth/login',[
-                    'body' => json_encode($requestBody),
+                    'form_params' => $requestBody,
                     'defaults' => [
                         'exceptions' => false
                     ]
@@ -131,7 +131,7 @@ class AuthController extends BaseController
             }
 
             if(!isset($error)){
-                return repsonse()->json([
+                return response()->json([
                     'message' => 'oauth Token generated successfully',
                     'data' => $response,
                     'user' => $user,
